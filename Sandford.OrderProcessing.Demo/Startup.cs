@@ -53,7 +53,7 @@ namespace Sandford.OrderProcessing.Demo
             services.AddLogging();
 
             // Bind database-related bindings
-            CosmosDbSettings cosmosDbConfig = configuration.GetSection("ConnectionStrings:CleanArchitectureCosmosDB").Get<CosmosDbSettings>();
+            CosmosDbSettings cosmosDbConfig = configuration.GetSection("ConnectionStrings:CosmosDB").Get<CosmosDbSettings>();
             // register CosmosDB client and data repositories
             services.AddCosmosDb(cosmosDbConfig.EndpointUrl,
                                  cosmosDbConfig.PrimaryKey,
