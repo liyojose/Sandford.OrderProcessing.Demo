@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Sandford.OrderProcessing.Demo": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7284",
+      "launchBrowser": false
+    }
+  }
+}
