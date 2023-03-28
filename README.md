@@ -34,6 +34,52 @@ AddCosmosDB() is an extension method defined in the Infrastructure project so th
 Because we are using repository pattern, we also register the ProductionOrderRepository, which will internally know what Cosmos DB container to use and what the partition key value is.
 
 
+Local.settings.json
+
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+    "SBConnectionSaleOrderQueue": "your connection string.. Only for devloment", //Always update in Azure Keyvault and read in appsetting using keyvault refernces.
+    "SalesOrderQueue": "salesorder" //put your message queue  name here
+  },
+  "ConnectionStrings": {
+    "CosmosDB": {
+      "EndpointUrl": "",
+      // default primary key used by CosmosDB emulator
+      "PrimaryKey": "uCvfiYT6ba1lRqqyquJ8IeNDLzkWTxTtfYFYWze7JyIPYJdWNv72M9toJGjlCUoveXx6iYlr5sIxACDbCrNUdw==",//Always update in Azure Keyvault and read in appsetting using keyvault refernces.
+      "DatabaseName": "Order",
+      "Containers": [
+        {
+          "Name": "purchaseorder",
+          "PartitionKey": "/Id"
+        }
+      ]
+    }
+  }
+}
+
+Host.json
+{
+  "version": "2.0",
+  "logging": {
+    "applicationInsights": {
+      "samplingExcludedTypes": "Request",
+      "samplingSettings": {
+        "isEnabled": true
+      }
+    }
+  },
+  "extensions": {
+    "serviceBus": {
+      "messageHandlerOptions": {
+        "autoComplete": false,
+        "maxConcurrentCalls": 1
+      }
+    }
+  }
+}
 
 Deployment
 
